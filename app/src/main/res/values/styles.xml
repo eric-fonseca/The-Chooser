@@ -1,0 +1,48 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:typeface">sans</item>
+
+        //both do the same thing - change text color on content area
+        <!--<item name="android:textColorPrimary">#01579B</item>-->
+        <item name="android:textColor">#757575</item>
+
+        //adds color to both action bar and content area(Dont use)
+        <!--<item name="android:background">#FF5722</item>-->
+        <!--<item name="android:windowBackground">#F5F5F5</item>-->
+
+        //action bar color
+        <item name="colorPrimary">#D32F2F</item>
+
+        //background color for all screens DOESNT WORK
+        <!--<item name="android:colorBackground">#FFEB3B</item>-->
+
+
+
+        //topColor(battery percentage)
+        <item name="android:colorPrimaryDark">#C62828</item>
+
+        // navigation bar at the bottom (not on actual devices)
+        <item name="android:navigationBarColor">#D32F2F</item>
+
+        <!--<item name="android:statusBarColor">#6D4C41</item>-->
+
+
+        <!--<item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColor">@color/text_secondary</item>
+        <item name="android:navigationBarColor">@color/primary_dark</item>-->
+
+
+
+
+    </style>
+
+
+</resources>

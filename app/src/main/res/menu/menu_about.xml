@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".AboutActivity">
+
+    <item
+        android:id="@+id/section"
+        android:title="hamburger"
+        android:icon="@drawable/hamburger_menu_icon"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_home"
+                android:title="Home"/>
+
+            <item
+                android:id="@+id/action_about"
+                android:title="About"/>
+        </menu>
+    </item>
+
+</menu>

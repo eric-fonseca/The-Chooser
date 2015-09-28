@@ -1,0 +1,39 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context=".DecideActivity">
+    <item android:id="@+id/action_add"
+          android:icon="@drawable/add_button_small"
+          android:title="Add"
+          app:showAsAction="always"
+        />
+    <!--<group
+        android:checkableBehavior="single"
+        android:icon="@drawable/add_button">
+    <item android:id="@+id/action_home"
+          android:title="@string/action_home"
+          android:orderInCategory="50"
+          android:checked="true"/>
+      <item android:id="@+id/action_about"
+            android:title="@string/action_about"
+            android:orderInCategory="100"
+
+          />
+    </group>-->
+
+    <item
+        android:id="@+id/section"
+        android:title="hamburger"
+        android:icon="@drawable/hamburger_menu_icon"
+        app:showAsAction="always">
+        <menu>
+            <item
+                android:id="@+id/action_home"
+                android:title="Home"/>
+
+            <item
+                android:id="@+id/action_about"
+                android:title="About"/>
+        </menu>
+    </item>
+</menu>

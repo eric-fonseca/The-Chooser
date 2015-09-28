@@ -1,0 +1,27 @@
+<resources>
+    //title names for each screen
+    //look in AndroidMainfest.xml file to add screens
+    <string name="app_name">Decide</string>
+    <string name="about_screen_name">About</string>
+
+    //hamburger menu strings
+    <string name="action_home">Home</string>
+    <string name="action_about">About</string>
+
+    //decide strings
+    <string name="hello_world">Hello world!</string>
+    <string name="create">Create</string>
+
+
+    //about strings
+
+    //NewList Strings
+    <string name="list_title">List</string>
+
+    //History Strings
+    <string name="history_title">History</string>
+
+    //Roll Strings
+    <string name="roll_title">Result</string>
+
+</resources>

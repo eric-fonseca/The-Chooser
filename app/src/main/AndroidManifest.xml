@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.shawn.decide" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".DecideActivity"
+            android:label="@string/app_name"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:label="@string/about_screen_name"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+        </activity>
+
+        <activity
+            android:name="com.example.shawn.decide.NewListActivity"
+            android:label="@string/list_title"
+            android:parentActivityName="com.example.shawn.decide.DecideActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.shawn.decide.DecideActivity" />
+        </activity>
+        <activity
+            android:name="com.example.shawn.decide.HistoryActivity"
+            android:label="@string/history_title"
+            android:parentActivityName="com.example.shawn.decide.NewListActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.shawn.decide.NewListActivity" />
+        </activity>
+
+        <activity
+            android:name="com.example.shawn.decide.RollActivity"
+            android:label="@string/roll_title"
+            android:parentActivityName="com.example.shawn.decide.HistoryActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.shawn.decide.HistoryActivity" />
+        </activity>
+    </application>
+
+</manifest>
