@@ -40,10 +40,12 @@ public class DecideActivity extends AppCompatActivity {
 
         mAdapter = new MyAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
+    }
 
-        mAdapter.add("Workout Activities", 0);
-        mAdapter.add("Fun Activities", 1);
-        mAdapter.add("Restaurants", 2);
+    @Override
+    public void onPause(){
+        super.onPause();
+        mAdapter.commitChanges(this);
     }
 
     @Override

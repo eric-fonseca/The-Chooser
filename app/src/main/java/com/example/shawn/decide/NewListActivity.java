@@ -94,6 +94,11 @@ public class NewListActivity extends AppCompatActivity {
         // clear EditText so user won’t add it twice
         editText.setText("");
     }
+    @Override
+    public void onPause(){
+        super.onPause();
+        mAdapter.commitChanges(this);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

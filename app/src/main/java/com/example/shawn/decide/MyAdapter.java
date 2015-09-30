@@ -1,14 +1,20 @@
 package com.example.shawn.decide;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,11 +26,21 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     private final Context mContext;
     private List<String> mData;
-
+    public static final String PREFS_NAME = "DATA_PREFERENCES";
+    public static final String KEY_LIST_DATA = "KEY_LIST_DATA";
 
     public MyAdapter(Context context){
         mContext = context;
-        mData = new ArrayList<String>();
+
+        SharedPreferences pref = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String arrayListAsJson = pref.getString(KEY_LIST_DATA, "");
+        Gson gson = new Gson();
+        mData = gson.fromJson(arrayListAsJson, new TypeToken<ArrayList<String>>(){}.getType());
+        Log.d("DataStore", "reading string - arrayListToJson=" + arrayListAsJson);
+
+        if(mData == null){
+            mData = new ArrayList<String>();
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -51,6 +67,19 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             mData.remove(position);
             notifyItemRemoved(position);
         }
+    }
+
+    public boolean commitChanges(Context context){
+        SharedPreferences pref = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+
+        Gson gson = new GsonBuilder().create();
+        String arrayListToJson = gson.toJson(mData);
+        Log.d("DataStore", "Saving string - arrayListToJson=" + arrayListToJson);
+        editor.putString(KEY_LIST_DATA, arrayListToJson);
+
+        boolean success = editor.commit();
+        return success;
     }
 
     @Override
