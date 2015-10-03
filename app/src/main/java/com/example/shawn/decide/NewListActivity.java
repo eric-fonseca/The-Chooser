@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by Shawn on 9/25/2015.
  */
@@ -27,6 +29,7 @@ public class NewListActivity extends AppCompatActivity {
     private MyAdapter mAdapter;
     private ImageView arrow;
     private Button mRollButton;
+    private String listID;
 
 
     @Override
@@ -43,24 +46,18 @@ public class NewListActivity extends AppCompatActivity {
         //textView.setText(message);
         //sets content text
         //setContentView(textView);
-
+        Log.d("DataStore", "message=" + message);
         //sets actionbar title
         setTitle(message);
-
+        listID = message;
 
         mRecyclerView = (RecyclerView)findViewById(R.id.recycler_list_items);
         mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
 
 
-        mAdapter = new MyAdapter(this);
+        mAdapter = new MyAdapter(this, message);
         mRecyclerView.setAdapter(mAdapter);
-
-
-        //mAdapter.add("Play Sports", 0);
-        //mAdapter.add("Run Fast", 1);
-        //mAdapter.add("Crazy", 2);
-
 
         //arrow = (ImageView)findViewById(R.id.arrowImage);
         //arrow.setVisibility(View.GONE);
@@ -87,7 +84,10 @@ public class NewListActivity extends AppCompatActivity {
         String text = editText.getText().toString();
         // add the text to our adapter if text isn't blank
         if (text.trim().length() > 0) {
-            mAdapter.add(text, mAdapter.getItemCount());
+
+            ListItem item = new ListItem(text, listID);
+
+            mAdapter.add(item, mAdapter.getItemCount());
             //Log.d("ListActivity", "text added to list");
         }
 
@@ -98,6 +98,7 @@ public class NewListActivity extends AppCompatActivity {
     public void onPause(){
         super.onPause();
         mAdapter.commitChanges(this);
+        Log.d("DataStore", "data=" + mAdapter.getData());
     }
 
     @Override

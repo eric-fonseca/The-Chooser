@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,22 +26,28 @@ import java.util.List;
  */
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     private final Context mContext;
-    private List<String> mData;
+    private ArrayList<ListItem> mData;
     public static final String PREFS_NAME = "DATA_PREFERENCES";
     public static final String KEY_LIST_DATA = "KEY_LIST_DATA";
+    private String listID;
 
-    public MyAdapter(Context context){
+    public MyAdapter(Context context, String id){
         mContext = context;
 
         SharedPreferences pref = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String arrayListAsJson = pref.getString(KEY_LIST_DATA, "");
         Gson gson = new Gson();
-        mData = gson.fromJson(arrayListAsJson, new TypeToken<ArrayList<String>>(){}.getType());
+        mData = gson.fromJson(arrayListAsJson, new TypeToken<ArrayList<ListItem>>() {
+        }.getType());
         Log.d("DataStore", "reading string - arrayListToJson=" + arrayListAsJson);
 
+        listID = id;
+
         if(mData == null){
-            mData = new ArrayList<String>();
+            mData = new ArrayList<ListItem>();
         }
+
+        Log.d("DataStore", "mData=" + mData);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -56,9 +63,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         }
     }
 
-    public void add(String text, int position){
+    public void add(ListItem item, int position){
         position = position == -1 ? getItemCount() : position;
-        mData.add(position, text);
+        mData.add(position, item);
         notifyItemInserted(position);
     }
 
@@ -82,6 +89,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         return success;
     }
 
+    public ArrayList<ListItem> getData() {
+        return mData;
+    }
+
     @Override
     public int getItemCount(){
         return mData.size();
@@ -95,13 +106,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position){
-        holder.listTitle.setText(mData.get(position));
-        holder.listTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(mContext, "Text = " + mData.get(position) + " Position = " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+        Log.d("DataStore", "mData.get(position).id == listID --> " + mData.get(position).id + " == " + listID);
+        if(mData.get(position).id.equals(listID)){
+            holder.listTitle.setText(mData.get(position).text);
+            holder.listTitle.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(mContext, "Text = " + mData.get(position) + " Position = " + position, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
 }

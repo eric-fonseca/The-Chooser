@@ -22,6 +22,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 public class DecideActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "com.example.shawn.decide.MESSAGE";
@@ -38,7 +40,7 @@ public class DecideActivity extends AppCompatActivity {
         mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
 
-        mAdapter = new MyAdapter(this);
+        mAdapter = new MyAdapter(this, "mainList");
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -105,9 +107,11 @@ public class DecideActivity extends AppCompatActivity {
                 } else {
                     //create a new screen and pass the text value to it
                     Intent intent = new Intent(DecideActivity.this, NewListActivity.class);
-                    String message = input.getText().toString();
-                    intent.putExtra(EXTRA_MESSAGE, message);
-                    mAdapter.add(message, mAdapter.getItemCount());
+
+                    ListItem item = new ListItem(text, "mainList");
+
+                    intent.putExtra(EXTRA_MESSAGE, item.text);
+                    mAdapter.add(item, mAdapter.getItemCount());
                     //dialog.dismiss();
                     startActivity(intent);
                 }
