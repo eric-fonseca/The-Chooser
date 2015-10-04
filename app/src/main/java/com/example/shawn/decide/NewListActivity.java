@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
@@ -25,12 +26,11 @@ import java.util.ArrayList;
 public class NewListActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
+    private LinearLayoutManager mLinearLayoutManager;
     private MyAdapter mAdapter;
     private ImageView arrow;
     private Button mRollButton;
     private String listID;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +52,8 @@ public class NewListActivity extends AppCompatActivity {
         listID = message;
 
         mRecyclerView = (RecyclerView)findViewById(R.id.recycler_list_items);
-        mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
+        mLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
 
         mAdapter = new MyAdapter(this, message);

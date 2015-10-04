@@ -27,8 +27,8 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     private final Context mContext;
     private ArrayList<ListItem> mData;
-    public static final String PREFS_NAME = "DATA_PREFERENCES";
-    public static final String KEY_LIST_DATA = "KEY_LIST_DATA";
+    public static String PREFS_NAME = "DATA_PREFERENCES";
+    public static String KEY_LIST_DATA = "KEY_LIST_DATA";
     private String listID;
 
     public MyAdapter(Context context, String id){
@@ -93,20 +93,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         return mData;
     }
 
+    public ListItem getItem(int position){
+        return mData.get(position);
+    }
+
     @Override
     public int getItemCount(){
         return mData.size();
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view = LayoutInflater.from(mContext).inflate(R.layout.list_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position){
-        Log.d("DataStore", "mData.get(position).id == listID --> " + mData.get(position).id + " == " + listID);
         if(mData.get(position).id.equals(listID)){
             holder.listTitle.setText(mData.get(position).text);
             holder.listTitle.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +118,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                     Toast.makeText(mContext, "Text = " + mData.get(position) + " Position = " + position, Toast.LENGTH_SHORT).show();
                 }
             });
+        }
+        else{
+            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+            layoutParams.height = 0;
+            holder.itemView.setLayoutParams(layoutParams);
         }
     }
 

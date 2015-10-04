@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
@@ -28,7 +29,7 @@ public class DecideActivity extends AppCompatActivity {
 
     public final static String EXTRA_MESSAGE = "com.example.shawn.decide.MESSAGE";
     private RecyclerView mRecyclerView;
-    private StaggeredGridLayoutManager mStaggeredGridLayoutManager;
+    private LinearLayoutManager mLinearLayoutManager;
     private MyAdapter mAdapter;
 
     @Override
@@ -37,8 +38,8 @@ public class DecideActivity extends AppCompatActivity {
         setContentView(R.layout.activity_decide);
 
         mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
-        mStaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(mStaggeredGridLayoutManager);
+        mLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
         mAdapter = new MyAdapter(this, "mainList");
         mRecyclerView.setAdapter(mAdapter);
