@@ -1,6 +1,7 @@
 package com.example.shawn.decide;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.Image;
 import android.support.v7.widget.RecyclerView;
@@ -27,8 +28,9 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     private final Context mContext;
     private ArrayList<ListItem> mData;
-    public static String PREFS_NAME = "DATA_PREFERENCES";
-    public static String KEY_LIST_DATA = "KEY_LIST_DATA";
+    public final static String PREFS_NAME = "DATA_PREFERENCES";
+    public final static String KEY_LIST_DATA = "KEY_LIST_DATA";
+    public final static String LIST_TITLE = "LIST_TITLE";
     private String listID;
 
     public MyAdapter(Context context, String id){
@@ -56,9 +58,12 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
 
         public ViewHolder(View itemView){
             super(itemView);
+
             mArrowImage = (ImageView)itemView.findViewById(R.id.arrowImage);
-            //hides arrows
-            mArrowImage.setVisibility(View.GONE);
+
+            if(!(mContext instanceof DecideActivity)){
+                mArrowImage.setVisibility(View.GONE);
+            }
             listTitle = (TextView)itemView.findViewById(R.id.listTitle);
         }
     }
@@ -97,6 +102,18 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         return mData.get(position);
     }
 
+    public ArrayList<ListItem> getCurrentListItems(String listID){
+        ArrayList<ListItem> currentList = new ArrayList<ListItem>();
+
+        for(int i = 0; i < mData.size(); i++){
+            if(mData.get(i).id.equals(listID)){
+                currentList.add(mData.get(i));
+            }
+        }
+
+        return currentList;
+    }
+
     @Override
     public int getItemCount(){
         return mData.size();
@@ -112,10 +129,16 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     public void onBindViewHolder(final ViewHolder holder, final int position){
         if(mData.get(position).id.equals(listID)){
             holder.listTitle.setText(mData.get(position).text);
+
+            holder.itemView.setPadding(0, 10, 0, 0);
+
             holder.listTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(mContext, "Text = " + mData.get(position) + " Position = " + position, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(mContext, NewListActivity.class);
+                    intent.putExtra(LIST_TITLE, mData.get(position).text);
+                    mContext.startActivity(intent);
+                    //Toast.makeText(mContext, "Text = " + mData.get(position) + " Position = " + position, Toast.LENGTH_SHORT).show();
                 }
             });
         }

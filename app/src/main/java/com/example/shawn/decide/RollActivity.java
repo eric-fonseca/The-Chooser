@@ -7,6 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 /**
  * Created by Shawn on 9/27/2015.
@@ -14,12 +17,19 @@ import android.widget.Button;
 public class RollActivity extends AppCompatActivity {
     private Button mCompleteButton;
     private Button mIncompleteButton;
+    private TextView mChoice;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_roll);
 
         //getActionBar().hide();
+        Intent intent = getIntent();
+        String choice = intent.getStringExtra(NewListActivity.ROLL);
+
+        mChoice = (TextView)findViewById(R.id.roll_choice);
+        mChoice.setText(choice);
 
         mCompleteButton = (Button)findViewById(R.id.complete_button);
         mCompleteButton.setOnClickListener(new View.OnClickListener() {

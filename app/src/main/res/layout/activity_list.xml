@@ -11,7 +11,8 @@
     <android.support.v7.widget.RecyclerView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/recycler_list_items">
+        android:id="@+id/recycler_list_items"
+        android:layout_above="@+id/roll_button">
     </android.support.v7.widget.RecyclerView>
 
 

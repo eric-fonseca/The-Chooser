@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -25,6 +26,7 @@ import java.util.ArrayList;
  */
 public class NewListActivity extends AppCompatActivity {
 
+    public final static String ROLL = "ROLL";
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private MyAdapter mAdapter;
@@ -38,9 +40,18 @@ public class NewListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         Intent intent = getIntent();
 
+        //Bundle extras = getIntent().getExtras();
+        //String newString = extras.getString("myString");
 
+        String message;
         //gets message that set in pop-up from DecideActivity
-        String message = intent.getStringExtra(DecideActivity.EXTRA_MESSAGE);
+        if(intent.getStringExtra(MyAdapter.LIST_TITLE) == null){
+            message = intent.getStringExtra(DecideActivity.EXTRA_MESSAGE);
+        }
+        else{
+            message = intent.getStringExtra(MyAdapter.LIST_TITLE);
+        }
+
         //TextView textView = new TextView(this);
         //textView.setTextSize(40);
         //textView.setText(message);
@@ -49,6 +60,7 @@ public class NewListActivity extends AppCompatActivity {
         Log.d("DataStore", "message=" + message);
         //sets actionbar title
         setTitle(message);
+
         listID = message;
 
         mRecyclerView = (RecyclerView)findViewById(R.id.recycler_list_items);
@@ -66,8 +78,22 @@ public class NewListActivity extends AppCompatActivity {
         mRollButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(NewListActivity.this, RollActivity.class);
-                startActivity(i);
+                mAdapter.getData();
+                String choice = "";
+
+                ArrayList<ListItem> randomChoice = mAdapter.getCurrentListItems(listID);
+                if(randomChoice.size() > 1){
+                    double randomNumber = Math.floor(Math.random() * randomChoice.size());
+                    choice = randomChoice.get((int)randomNumber).text;
+
+                    Intent intent = new Intent(NewListActivity.this, RollActivity.class);
+                    intent.putExtra(ROLL, choice);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(NewListActivity.this, "You need at least 2 different choices to roll", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
