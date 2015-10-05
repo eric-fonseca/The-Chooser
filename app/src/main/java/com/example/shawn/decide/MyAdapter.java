@@ -102,6 +102,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         return mData.get(position);
     }
 
+    public int getItemPos(String name) {
+        return mData.indexOf(name);
+    }
+
     public ArrayList<ListItem> getCurrentListItems(String listID){
         ArrayList<ListItem> currentList = new ArrayList<ListItem>();
 
@@ -129,18 +133,27 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     public void onBindViewHolder(final ViewHolder holder, final int position){
         if(mData.get(position).id.equals(listID)){
             holder.listTitle.setText(mData.get(position).text);
-
             holder.itemView.setPadding(0, 10, 0, 0);
 
-            holder.listTitle.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(mContext, NewListActivity.class);
-                    intent.putExtra(LIST_TITLE, mData.get(position).text);
-                    mContext.startActivity(intent);
-                    //Toast.makeText(mContext, "Text = " + mData.get(position) + " Position = " + position, Toast.LENGTH_SHORT).show();
-                }
-            });
+            if(mContext instanceof DecideActivity) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(mContext, NewListActivity.class);
+                        intent.putExtra(LIST_TITLE, mData.get(position).text);
+                        mContext.startActivity(intent);
+                    }
+                });
+
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener(){
+                    @Override
+                    public boolean onLongClick(View view) {
+                        remove(position);
+                        return true;
+                    }
+                });
+
+            }
         }
         else{
             ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();

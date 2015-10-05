@@ -1,46 +1,81 @@
 package com.example.shawn.decide;
 
-
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
- * Created by Shawn on 9/26/2015.
+ * Created by Shawn on 9/25/2015.
  */
 public class HistoryActivity extends AppCompatActivity {
+
+    public final static String LIST_ID = "LIST_ID";
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLinearLayoutManager;
+    private MyAdapter mAdapter;
+    private String listID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_about);
+        setContentView(R.layout.activity_history);
+        Intent intent = getIntent();
 
-    }
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_history, menu);
-        return true;
+        listID = intent.getStringExtra(NewListActivity.TITLE);
+
+        mRecyclerView = (RecyclerView)findViewById(R.id.history_list_items);
+        mLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+
+        mAdapter = new MyAdapter(this, listID);
+        mRecyclerView.setAdapter(mAdapter);
+
+        Intent data = new Intent();
+        data.putExtra(LIST_ID, listID);
+        setResult(RESULT_OK, data);
     }
 
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        /*switch (item.getItemId()) {
-            case R.id.history:
-                Intent i = new Intent(NewListActivity.this, HistoryActivity.class);
-                startActivity(i);
-                //openSearch();
-                return true;
-            case R.id.action_about:
-                Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
-                startActivity(intent);
-                return true;
-            default:*/
-        return super.onOptionsItemSelected(item);
+    @Override
+    public void onPause(){
+        super.onPause();
+        mAdapter.commitChanges(this);
     }
+
+
+    public void onBackPressed(){
+        super.onBackPressed();
+        Log.d("DataStore", "back Pressed" + listID);
+        Intent intent = new Intent();
+        intent.putExtra(LIST_ID, listID);
+        setResult(RESULT_OK, intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+            return true;
+        }
+        return false;
+    }
+
+
 }
-
-

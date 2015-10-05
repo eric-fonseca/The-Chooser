@@ -27,12 +27,14 @@ import java.util.ArrayList;
 public class NewListActivity extends AppCompatActivity {
 
     public final static String ROLL = "ROLL";
+    public final static String TITLE = "TITLE";
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private MyAdapter mAdapter;
     private ImageView arrow;
     private Button mRollButton;
     private String listID;
+    private String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +45,15 @@ public class NewListActivity extends AppCompatActivity {
         //Bundle extras = getIntent().getExtras();
         //String newString = extras.getString("myString");
 
-        String message;
         //gets message that set in pop-up from DecideActivity
-        if(intent.getStringExtra(MyAdapter.LIST_TITLE) == null){
+        if(intent.getStringExtra(MyAdapter.LIST_TITLE) != null){
+            message = intent.getStringExtra(MyAdapter.LIST_TITLE);
+        }
+        else if(intent.getStringExtra(DecideActivity.EXTRA_MESSAGE) != null){
             message = intent.getStringExtra(DecideActivity.EXTRA_MESSAGE);
         }
         else{
-            message = intent.getStringExtra(MyAdapter.LIST_TITLE);
+            message = intent.getStringExtra(HistoryActivity.LIST_ID);
         }
 
         //TextView textView = new TextView(this);
@@ -71,9 +75,6 @@ public class NewListActivity extends AppCompatActivity {
         mAdapter = new MyAdapter(this, message);
         mRecyclerView.setAdapter(mAdapter);
 
-        //arrow = (ImageView)findViewById(R.id.arrowImage);
-        //arrow.setVisibility(View.GONE);
-
         mRollButton = (Button)findViewById(R.id.roll_button);
         mRollButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +89,7 @@ public class NewListActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(NewListActivity.this, RollActivity.class);
                     intent.putExtra(ROLL, choice);
+                    //intent.putExtra(POSITION, mAdapter.getItemPos(choice));
                     startActivity(intent);
                 }
                 else{
@@ -139,8 +141,9 @@ public class NewListActivity extends AppCompatActivity {
         // Handle presses on the action bar items
         switch (item.getItemId()) {
             case R.id.history:
-                Intent i = new Intent(NewListActivity.this, HistoryActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(NewListActivity.this, HistoryActivity.class);
+                intent.putExtra(TITLE, message);
+                startActivityForResult(intent, 1);
                 //openSearch();
                 return true;
             /*case R.id.action_about:
@@ -151,6 +154,16 @@ public class NewListActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    /*public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if(resultCode == RESULT_OK){
+                message = data.getStringExtra(HistoryActivity.LIST_ID);
+            }
+        }
+    }*/
+
     /**
      * A placeholder fragment containing a simple view.
      */
