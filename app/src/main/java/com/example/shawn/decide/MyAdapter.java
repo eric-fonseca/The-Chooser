@@ -78,6 +78,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         if(position < getItemCount()){
             mData.remove(position);
             notifyItemRemoved(position);
+            notifyDataSetChanged();
         }
     }
 
@@ -142,9 +143,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                         Intent intent = new Intent(mContext, NewListActivity.class);
                         intent.putExtra(LIST_TITLE, mData.get(position).text);
                         mContext.startActivity(intent);
+                        Log.d("DataStore", "position=" + position);
                     }
                 });
-
+            }
+            if(!(mContext instanceof HistoryActivity)){
                 holder.itemView.setOnLongClickListener(new View.OnLongClickListener(){
                     @Override
                     public boolean onLongClick(View view) {
@@ -152,7 +155,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                         return true;
                     }
                 });
-
             }
         }
         else{
