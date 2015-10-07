@@ -103,9 +103,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         return mData.get(position);
     }
 
-    public int getPosition(String name) {
+    public int getPosition(String name, String id) {
         for(ListItem listItem : mData) {
-            if(listItem.text.equals(name)) {
+            if(listItem.text.equals(name) && listItem.id.equals(id)) {
                 return mData.indexOf(listItem);
             }
         }
@@ -116,7 +116,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         ArrayList<ListItem> currentList = new ArrayList<ListItem>();
 
         for(int i = 0; i < mData.size(); i++){
-            if(mData.get(i).id.equals(listID)){
+            if(mData.get(i).id.equals(listID) && mData.get(i).completed == false){
                 currentList.add(mData.get(i));
             }
         }
@@ -138,10 +138,32 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position){
         if(mData.get(position).id.equals(listID)){
-            holder.listTitle.setText(mData.get(position).text);
-            holder.itemView.setPadding(0, 10, 0, 0);
+            if(mContext instanceof HistoryActivity){
+                if(mData.get(position).completed == true){
+                    holder.listTitle.setText(mData.get(position).text);
+                    holder.itemView.setPadding(0, 10, 0, 0);
+                }
+                else{
+                    ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+                    layoutParams.height = 0;
+                    holder.itemView.setLayoutParams(layoutParams);
+                }
+            }
+            else if(mContext instanceof NewListActivity){
+                if(mData.get(position).completed == false){
+                    holder.listTitle.setText(mData.get(position).text);
+                    holder.itemView.setPadding(0, 10, 0, 0);
+                }
+                else{
+                    ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+                    layoutParams.height = 0;
+                    holder.itemView.setLayoutParams(layoutParams);
+                }
+            }
+            else if(mContext instanceof DecideActivity){
+                holder.listTitle.setText(mData.get(position).text);
+                holder.itemView.setPadding(0, 10, 0, 0);
 
-            if(mContext instanceof DecideActivity) {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -152,8 +174,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                     }
                 });
             }
-            if(!(mContext instanceof HistoryActivity)){
-                holder.itemView.setOnLongClickListener(new View.OnLongClickListener(){
+            if(!(mContext instanceof HistoryActivity)) {
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
                         remove(position);
@@ -161,6 +183,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                     }
                 });
             }
+
         }
         else{
             ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();

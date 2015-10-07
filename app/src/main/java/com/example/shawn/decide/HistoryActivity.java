@@ -57,7 +57,7 @@ public class HistoryActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         if(completedItem != null){
-            mAdapter.getData().get(mAdapter.getPosition(completedItem)).completed = true;
+            mAdapter.getData().get(mAdapter.getPosition(completedItem, listID)).completed = true;
             Log.d("DataStore", "completed = " + mAdapter.getData());
         }
 
