@@ -32,14 +32,22 @@ public class HistoryActivity extends AppCompatActivity {
     private LinearLayoutManager mLinearLayoutManager;
     private MyAdapter mAdapter;
     private String listID;
+    private String completedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
+
         Intent intent = getIntent();
 
-        listID = intent.getStringExtra(NewListActivity.TITLE);
+        if(intent.getStringExtra(NewListActivity.TITLE) != null){
+            listID = intent.getStringExtra(NewListActivity.TITLE);
+        }
+        else{
+            completedItem = intent.getStringExtra(RollActivity.ROLL_TEXT);
+            listID = intent.getStringExtra(RollActivity.ROLL_ID);
+        }
 
         mRecyclerView = (RecyclerView)findViewById(R.id.history_list_items);
         mLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -47,6 +55,11 @@ public class HistoryActivity extends AppCompatActivity {
 
         mAdapter = new MyAdapter(this, listID);
         mRecyclerView.setAdapter(mAdapter);
+
+        if(completedItem != null){
+            mAdapter.getData().get(mAdapter.getPosition(completedItem)).completed = true;
+            Log.d("DataStore", "completed = " + mAdapter.getData());
+        }
 
         Intent data = new Intent();
         data.putExtra(LIST_ID, listID);
@@ -63,9 +76,10 @@ public class HistoryActivity extends AppCompatActivity {
     public void onBackPressed(){
         super.onBackPressed();
         Log.d("DataStore", "back Pressed" + listID);
-        Intent intent = new Intent();
+        Intent intent = new Intent(HistoryActivity.this, NewListActivity.class);
         intent.putExtra(LIST_ID, listID);
         setResult(RESULT_OK, intent);
+        startActivity(intent);
     }
 
     @Override

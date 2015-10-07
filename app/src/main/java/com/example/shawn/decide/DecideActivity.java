@@ -109,7 +109,7 @@ public class DecideActivity extends AppCompatActivity {
                     //create a new screen and pass the text value to it
                     Intent intent = new Intent(DecideActivity.this, NewListActivity.class);
 
-                    ListItem item = new ListItem(text, "mainList");
+                    ListItem item = new ListItem(text, "mainList", false);
 
                     intent.putExtra(EXTRA_MESSAGE, item.text);
                     mAdapter.add(item, mAdapter.getItemCount());

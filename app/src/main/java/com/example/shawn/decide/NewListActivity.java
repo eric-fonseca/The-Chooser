@@ -71,7 +71,6 @@ public class NewListActivity extends AppCompatActivity {
         mLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-
         mAdapter = new MyAdapter(this, message);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -89,6 +88,7 @@ public class NewListActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(NewListActivity.this, RollActivity.class);
                     intent.putExtra(ROLL, choice);
+                    intent.putExtra(TITLE, listID);
                     //intent.putExtra(POSITION, mAdapter.getItemPos(choice));
                     startActivity(intent);
                 }
@@ -113,7 +113,7 @@ public class NewListActivity extends AppCompatActivity {
         // add the text to our adapter if text isn't blank
         if (text.trim().length() > 0) {
 
-            ListItem item = new ListItem(text, listID);
+            ListItem item = new ListItem(text, listID, false);
 
             mAdapter.add(item, mAdapter.getItemCount());
             //Log.d("ListActivity", "text added to list");
@@ -142,7 +142,7 @@ public class NewListActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.history:
                 Intent intent = new Intent(NewListActivity.this, HistoryActivity.class);
-                intent.putExtra(TITLE, message);
+                intent.putExtra(TITLE, listID);
                 startActivityForResult(intent, 1);
                 //openSearch();
                 return true;
@@ -153,6 +153,12 @@ public class NewListActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent intent = new Intent(NewListActivity.this, DecideActivity.class);
+        startActivity(intent);
     }
 
     /*public void onActivityResult(int requestCode, int resultCode, Intent data){

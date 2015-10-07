@@ -15,6 +15,8 @@ import org.w3c.dom.Text;
  * Created by Shawn on 9/27/2015.
  */
 public class RollActivity extends AppCompatActivity {
+    public final static String ROLL_TEXT = "ROLL_TEXT";
+    public final static String ROLL_ID = "ROLL_ID";
     private Button mCompleteButton;
     private Button mIncompleteButton;
     private TextView mChoice;
@@ -26,7 +28,8 @@ public class RollActivity extends AppCompatActivity {
 
         //getActionBar().hide();
         Intent intent = getIntent();
-        String choice = intent.getStringExtra(NewListActivity.ROLL);
+        final String choice = intent.getStringExtra(NewListActivity.ROLL);
+        final String id = intent.getStringExtra(NewListActivity.TITLE);
 
         mChoice = (TextView)findViewById(R.id.roll_choice);
         mChoice.setText(choice);
@@ -35,16 +38,17 @@ public class RollActivity extends AppCompatActivity {
         mCompleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(RollActivity.this, DecideActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(RollActivity.this, HistoryActivity.class);
+                intent.putExtra(ROLL_TEXT, choice);
+                intent.putExtra(ROLL_ID, id);
+                startActivity(intent);
             }
         });
         mIncompleteButton = (Button)findViewById(R.id.incomplete_button);
         mIncompleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(RollActivity.this, DecideActivity.class);
-                startActivity(i);
+                finish();
             }
         });
     }

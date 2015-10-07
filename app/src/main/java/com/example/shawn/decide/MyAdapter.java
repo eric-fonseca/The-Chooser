@@ -103,8 +103,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         return mData.get(position);
     }
 
-    public int getItemPos(String name) {
-        return mData.indexOf(name);
+    public int getPosition(String name) {
+        for(ListItem listItem : mData) {
+            if(listItem.text.equals(name)) {
+                return mData.indexOf(listItem);
+            }
+        }
+        return 0;
     }
 
     public ArrayList<ListItem> getCurrentListItems(String listID){

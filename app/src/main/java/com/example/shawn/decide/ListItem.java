@@ -8,10 +8,10 @@ public class ListItem {
     public String id;
     public boolean completed;
 
-    public ListItem(String text, String id){
+    public ListItem(String text, String id, boolean completed){
         this.text = text;
         this.id = id;
-        this.completed = false;
+        this.completed = completed;
     }
 
     public String toString(){
