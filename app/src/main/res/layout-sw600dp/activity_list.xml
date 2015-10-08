@@ -3,7 +3,14 @@
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
+<<<<<<< HEAD
                 android:padding="16dp"
+=======
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+>>>>>>> 1e2131828d35f607be1d9d00c3f9f3f36af18e10
                 android:background="#EEEEEE">
 
     <android.support.v7.widget.RecyclerView
@@ -27,8 +34,12 @@
         android:layout_alignParentStart="true"
         android:layout_alignTop="@+id/addButton"
         android:layout_toLeftOf="@id/addButton"
+<<<<<<< HEAD
         android:layout_toStartOf="@+id/addButton"
        />
+=======
+        android:layout_toStartOf="@+id/addButton"/>
+>>>>>>> 1e2131828d35f607be1d9d00c3f9f3f36af18e10
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,9 +50,13 @@
         android:layout_alignParentEnd="true"
         android:onClick="onAddItem"
         android:textSize="25sp"
+<<<<<<< HEAD
         android:padding="15dp"
         android:background="@drawable/button_custom"
         android:textColor="#EEEEEE"/>
+=======
+        android:padding="20dp"/>
+>>>>>>> 1e2131828d35f607be1d9d00c3f9f3f36af18e10
 
     <Button
         android:layout_width="fill_parent"
@@ -54,9 +69,14 @@
         android:nestedScrollingEnabled="true"
         android:hyphenationFrequency="none"
         android:textSize="25sp"
+<<<<<<< HEAD
         android:layout_marginBottom="20dp"
         android:background="@drawable/button_custom"
         android:textColor="#EEEEEE"
         android:padding="20dp" />
+=======
+        android:padding="25dp"
+        android:layout_marginBottom="20dp"/>
+>>>>>>> 1e2131828d35f607be1d9d00c3f9f3f36af18e10
 
 </RelativeLayout>

@@ -119,10 +119,15 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         ArrayList<ListItem> currentList = new ArrayList<ListItem>();
 
         for(int i = 0; i < mData.size(); i++){
+<<<<<<< HEAD
             if(listType == "newList"){
                 if(mData.get(i).id.equals(listID) && mData.get(i).completed == false){
                     currentList.add(mData.get(i));
                 }
+=======
+            if(mData.get(i).id.equals(listID) && mData.get(i).completed == false){
+                currentList.add(mData.get(i));
+>>>>>>> 1e2131828d35f607be1d9d00c3f9f3f36af18e10
             }
 
             else if (listType == "history"){
@@ -156,9 +161,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             if(mContext instanceof HistoryActivity){
                 if(mData.get(position).completed == true){
                     holder.listTitle.setText(mData.get(position).text);
+<<<<<<< HEAD
                     holder.listTitle.setTextColor(Color.parseColor("#6E6E6E"));
                     holder.itemView.setPadding(0, 10, 0, 0);
                     Log.d("MyAdapter", "Its true from history");
+=======
+                    holder.itemView.setPadding(0, 10, 0, 0);
+>>>>>>> 1e2131828d35f607be1d9d00c3f9f3f36af18e10
                 }
                 else{
                     ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
@@ -169,7 +178,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             else if(mContext instanceof NewListActivity){
                 if(mData.get(position).completed == false){
                     holder.listTitle.setText(mData.get(position).text);
+<<<<<<< HEAD
                     holder.listTitle.setTextColor(Color.parseColor("#6E6E6E"));
+=======
+>>>>>>> 1e2131828d35f607be1d9d00c3f9f3f36af18e10
                     holder.itemView.setPadding(0, 10, 0, 0);
                 }
                 else{
@@ -180,9 +192,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             }
             else if(mContext instanceof DecideActivity){
                 holder.listTitle.setText(mData.get(position).text);
+<<<<<<< HEAD
                 //holder.listTitle.setTypeface(holder.listTitle.getTypeface(), Typeface.BOLD);
                 holder.itemView.setPadding(0, 10, 0, 0);
 
+=======
+                holder.itemView.setPadding(0, 10, 0, 0);
+>>>>>>> 1e2131828d35f607be1d9d00c3f9f3f36af18e10
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -194,8 +210,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                     }
                 });
             }
-            if(!(mContext instanceof HistoryActivity)){
-                holder.itemView.setOnLongClickListener(new View.OnLongClickListener(){
+            if(!(mContext instanceof HistoryActivity)) {
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View view) {
                         remove(position);
@@ -203,6 +219,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
                     }
                 });
             }
+
         }
         else{
             ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
