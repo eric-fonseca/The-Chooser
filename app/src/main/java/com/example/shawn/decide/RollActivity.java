@@ -26,7 +26,6 @@ public class RollActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_roll);
 
-        //getActionBar().hide();
         Intent intent = getIntent();
         final String choice = intent.getStringExtra(NewListActivity.ROLL);
         final String id = intent.getStringExtra(NewListActivity.TITLE);
@@ -54,23 +53,8 @@ public class RollActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_about, menu);
-        return true;
-    }
+    public boolean onCreateOptionsMenu(Menu menu) { return true; }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle presses on the action bar items
-        /*switch (item.getItemId()) {
-            case R.id.action_home:
-                Intent i = new Intent(AboutActivity.this, DecideActivity.class);
-                startActivity(i);
-                //openSearch();
-                return true;
-            default:*/
-                return super.onOptionsItemSelected(item);
-
-    }
+    public boolean onOptionsItemSelected(MenuItem item) { return super.onOptionsItemSelected(item); }
 }

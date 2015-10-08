@@ -3,7 +3,10 @@ package com.example.shawn.decide;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.Image;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -60,11 +63,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             super(itemView);
 
             mArrowImage = (ImageView)itemView.findViewById(R.id.arrowImage);
+            listTitle = (TextView)itemView.findViewById(R.id.listTitle);
 
             if(!(mContext instanceof DecideActivity)){
                 mArrowImage.setVisibility(View.GONE);
             }
-            listTitle = (TextView)itemView.findViewById(R.id.listTitle);
         }
     }
 
@@ -103,24 +106,36 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         return mData.get(position);
     }
 
-    public int getPosition(String name) {
+    public int getPosition(String name, String id) {
         for(ListItem listItem : mData) {
-            if(listItem.text.equals(name)) {
+            if(listItem.text.equals(name) && listItem.id.equals(id)) {
                 return mData.indexOf(listItem);
             }
         }
         return 0;
     }
 
-    public ArrayList<ListItem> getCurrentListItems(String listID){
+    public ArrayList<ListItem> getCurrentListItems(String listID, String listType){
         ArrayList<ListItem> currentList = new ArrayList<ListItem>();
 
         for(int i = 0; i < mData.size(); i++){
-            if(mData.get(i).id.equals(listID)){
-                currentList.add(mData.get(i));
+            if(listType == "newList"){
+                if(mData.get(i).id.equals(listID) && mData.get(i).completed == false){
+                    currentList.add(mData.get(i));
+                }
+            }
+
+            else if (listType == "history"){
+                if(mData.get(i).id.equals(listID) && mData.get(i).completed == true){
+                    currentList.add(mData.get(i));
+                }
+            }
+            else{
+                if(mData.get(i).id.equals(listID)){
+                    currentList.add(mData.get(i));
+                }
             }
         }
-
         return currentList;
     }
 
@@ -138,10 +153,37 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position){
         if(mData.get(position).id.equals(listID)){
-            holder.listTitle.setText(mData.get(position).text);
-            holder.itemView.setPadding(0, 10, 0, 0);
+            if(mContext instanceof HistoryActivity){
+                if(mData.get(position).completed == true){
+                    holder.listTitle.setText(mData.get(position).text);
+                    holder.listTitle.setTextColor(Color.parseColor("#6E6E6E"));
+                    holder.itemView.setPadding(0, 10, 0, 0);
+                    Log.d("MyAdapter", "Its true from history");
+                }
+                else{
+                    ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+                    layoutParams.height = 0;
+                    holder.itemView.setLayoutParams(layoutParams);
+                }
+            }
+            else if(mContext instanceof NewListActivity){
+                if(mData.get(position).completed == false){
+                    holder.listTitle.setText(mData.get(position).text);
+                    holder.listTitle.setTextColor(Color.parseColor("#6E6E6E"));
+                    holder.itemView.setPadding(0, 10, 0, 0);
+                }
+                else{
+                    ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+                    layoutParams.height = 0;
+                    holder.itemView.setLayoutParams(layoutParams);
+                }
+            }
+            else if(mContext instanceof DecideActivity){
+                holder.listTitle.setText(mData.get(position).text);
+                //holder.listTitle.setTypeface(holder.listTitle.getTypeface(), Typeface.BOLD);
+                holder.itemView.setPadding(0, 10, 0, 0);
 
-            if(mContext instanceof DecideActivity) {
+
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

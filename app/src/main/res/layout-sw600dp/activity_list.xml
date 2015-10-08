@@ -2,25 +2,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:background="#EEEEEE"
-                android:padding="16dp">
+                android:layout_height="match_parent"
+                android:padding="16dp"
+                android:background="#EEEEEE">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/recycler_list_items"
         android:layout_above="@+id/roll_button"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
-        android:radius="50dp">
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp">
     </android.support.v7.widget.RecyclerView>
 
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:hint="Enter a new item"
         android:textColorHint="@android:color/darker_gray"
         android:id="@+id/editText"
@@ -30,7 +28,7 @@
         android:layout_alignTop="@+id/addButton"
         android:layout_toLeftOf="@id/addButton"
         android:layout_toStartOf="@+id/addButton"
-        android:textColor="#6E6E6E" />
+       />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,9 +38,10 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:onClick="onAddItem"
+        android:textSize="25sp"
+        android:padding="15dp"
         android:background="@drawable/button_custom"
-        android:textColor="#EEEEEE"
-        android:padding="15dp"/>
+        android:textColor="#EEEEEE"/>
 
     <Button
         android:layout_width="fill_parent"
@@ -52,10 +51,12 @@
         android:layout_above="@+id/editText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:paddingLeft="25dp"
-        android:paddingRight="15dp"
+        android:nestedScrollingEnabled="true"
+        android:hyphenationFrequency="none"
+        android:textSize="25sp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/button_custom"
         android:textColor="#EEEEEE"
-        android:layout_marginBottom="10dp" />
+        android:padding="20dp" />
 
 </RelativeLayout>

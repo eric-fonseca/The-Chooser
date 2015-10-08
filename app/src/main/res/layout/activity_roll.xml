@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="fill_parent"
-              android:layout_height="match_parent">
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="match_parent"
+                android:background="#EEEEEE">
 
     <TextView
         android:layout_width="wrap_content"
@@ -12,18 +13,24 @@
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"
         android:textAlignment="center"
-        android:paddingTop="15sp"
+        android:paddingTop="30sp"
         android:layout_centerHorizontal="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Do 20 Pushups"
+        android:text="Do 20 Pushups now or else you will never get strong and be able to pick things up and put them down Do 20 Pushups now or else you will never get strong and be able to pick things up and put them down Do 20 Pushups now or else you will never get strong and be able to pick things up and put them down Do 20 Pushups now or else you will never get strong and be able to pick things up and put them down"
         android:id="@+id/roll_choice"
         android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:gravity="center"
+        android:minLines="8"
+        android:nestedScrollingEnabled="false"
+        android:textColor="#D32F2F" />
 
     <Button
         android:layout_width="wrap_content"
@@ -32,7 +39,10 @@
         android:id="@+id/complete_button"
         android:layout_gravity="center_horizontal"
         android:layout_above="@+id/incomplete_button"
-        android:layout_centerHorizontal="true"/>
+        android:background="@drawable/button_custom"
+        android:textColor="#EEEEEE"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -41,5 +51,9 @@
         android:id="@+id/incomplete_button"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_marginBottom="30dp"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/button_custom"
+        android:textColor="#EEEEEE"
+        android:padding="10dp"/>
 </RelativeLayout>

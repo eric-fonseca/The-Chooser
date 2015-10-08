@@ -5,4 +5,7 @@
     <color name="accent">#ffc400</color>
     <color name="text_primary">#E65100</color>
     <color name="text_secondary">#D9000000</color>
+    <color name="button_clicked">#5E5E5E</color>
+    <color name="button_color">#6E6E6E</color>
+
 </resources>

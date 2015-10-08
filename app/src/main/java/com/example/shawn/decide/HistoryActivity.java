@@ -57,7 +57,7 @@ public class HistoryActivity extends AppCompatActivity {
         mRecyclerView.setAdapter(mAdapter);
 
         if(completedItem != null){
-            mAdapter.getData().get(mAdapter.getPosition(completedItem)).completed = true;
+            mAdapter.getData().get(mAdapter.getPosition(completedItem,listID)).completed = true;
             Log.d("DataStore", "completed = " + mAdapter.getData());
         }
 
@@ -75,7 +75,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     public void onBackPressed(){
         super.onBackPressed();
-        Log.d("DataStore", "back Pressed" + listID);
+        //Log.d("DataStore", "back Pressed" + listID);
         Intent intent = new Intent(HistoryActivity.this, NewListActivity.class);
         intent.putExtra(LIST_ID, listID);
         setResult(RESULT_OK, intent);
@@ -85,6 +85,7 @@ public class HistoryActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
+            //if back arrow is pressed
             onBackPressed();
             return true;
         }

@@ -65,7 +65,6 @@ public class DecideActivity extends AppCompatActivity {
             case R.id.action_about:
                 Intent i = new Intent(DecideActivity.this, AboutActivity.class);
                 startActivity(i);
-                //openSearch();
                 return true;
             case R.id.action_home:
                 Intent intent = new Intent(getApplicationContext(), DecideActivity.class);
@@ -113,7 +112,6 @@ public class DecideActivity extends AppCompatActivity {
 
                     intent.putExtra(EXTRA_MESSAGE, item.text);
                     mAdapter.add(item, mAdapter.getItemCount());
-                    //dialog.dismiss();
                     startActivity(intent);
                 }
             }

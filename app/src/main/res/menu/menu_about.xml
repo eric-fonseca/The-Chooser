@@ -6,7 +6,7 @@
     <item
         android:id="@+id/section"
         android:title="hamburger"
-        android:icon="@drawable/hamburger_menu_icon"
+        android:icon="@drawable/settings_small"
         app:showAsAction="always">
         <menu>
             <item
