@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.Image;
+import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -76,6 +78,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         //Add the item to the chosen position in the ArrayList
         mData.add(position, item);
         notifyItemInserted(position);
+        MediaPlayer mPlayer = MediaPlayer.create(mContext, R.raw.add);
+        mPlayer.start();
     }
 
     public void remove(int position){
@@ -84,6 +88,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
             mData.remove(position);
             notifyItemRemoved(position);
             notifyDataSetChanged();
+            MediaPlayer mPlayer = MediaPlayer.create(mContext, R.raw.remove);
+            mPlayer.start();
         }
     }
 
@@ -143,6 +149,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         }
         return currentList;
     }
+
 
     @Override
     public int getItemCount(){

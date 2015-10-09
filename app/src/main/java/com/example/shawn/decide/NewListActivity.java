@@ -3,6 +3,7 @@ package com.example.shawn.decide;
 import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -81,6 +82,9 @@ public class NewListActivity extends AppCompatActivity {
                     intent.putExtra(TITLE, mListID);
 
                     startActivity(intent);
+
+                    MediaPlayer mPlayer = MediaPlayer.create(getApplicationContext(), R.raw.success);
+                    mPlayer.start();
                 } else {
                     Toast toast = Toast.makeText(NewListActivity.this, "You need at least 2 different choices to select", Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER, 0, 0);
