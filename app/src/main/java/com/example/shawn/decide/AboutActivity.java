@@ -14,8 +14,6 @@ public class AboutActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-
-
     }
 
     @Override
@@ -32,11 +30,8 @@ public class AboutActivity extends AppCompatActivity {
             case R.id.action_home:
                 Intent i = new Intent(AboutActivity.this, DecideActivity.class);
                 startActivity(i);
-                //openSearch();
                 return true;
             case R.id.action_about:
-                //Intent intent = new Intent(getApplicationContext(), AboutActivity.class);
-                //startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

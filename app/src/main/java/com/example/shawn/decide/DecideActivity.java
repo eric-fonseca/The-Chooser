@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.os.Bundle;
@@ -27,10 +28,12 @@ import java.util.ArrayList;
 
 public class DecideActivity extends AppCompatActivity {
 
-    public final static String EXTRA_MESSAGE = "com.example.shawn.decide.MESSAGE";
+    public final static String NEW_LIST = "NEW_LIST";
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private MyAdapter mAdapter;
+    private boolean mNameMatch;
+    private ArrayList<ListItem> mListTitles;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,8 @@ public class DecideActivity extends AppCompatActivity {
 
         mAdapter = new MyAdapter(this, "mainList");
         mRecyclerView.setAdapter(mAdapter);
+
+        mListTitles = mAdapter.getCurrentListItems("mainList", "");
     }
 
     @Override
@@ -88,7 +93,7 @@ public class DecideActivity extends AppCompatActivity {
         final EditText input = new EditText(DecideActivity.this);
         builder.setView(input);
 
-        //crete pop-up
+        //create pop-up
         final AlertDialog dialog = builder.create();
         dialog.show();
 
@@ -99,20 +104,32 @@ public class DecideActivity extends AppCompatActivity {
             {
                 //create a string that hold the text value
                 String text = input.getText().toString();
+                mNameMatch = false;
+
+                for (int i = 0; i < mListTitles.size(); i++) {
+                    if (text.equals(mListTitles.get(i).text)) {
+                        Toast toast = Toast.makeText(DecideActivity.this, "You already have a list with that name!", Toast.LENGTH_SHORT);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
+                        mNameMatch = true;
+                    }
+                }
 
                 if(TextUtils.isEmpty(text)){
                    //show error message on pop-up
                    input.setError("Please insert a name for your list");
-
-                } else {
+                }
+                else if(mNameMatch == false) {
                     //create a new screen and pass the text value to it
                     Intent intent = new Intent(DecideActivity.this, NewListActivity.class);
 
                     ListItem item = new ListItem(text, "mainList", false);
 
-                    intent.putExtra(EXTRA_MESSAGE, item.text);
+                    intent.putExtra(NEW_LIST, item.text);
                     mAdapter.add(item, mAdapter.getItemCount());
                     startActivity(intent);
+
+                    mListTitles = mAdapter.getCurrentListItems("mainList", "");
                 }
             }
         });

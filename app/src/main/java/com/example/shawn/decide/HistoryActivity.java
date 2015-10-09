@@ -31,8 +31,8 @@ public class HistoryActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
     private MyAdapter mAdapter;
-    private String listID;
-    private String completedItem;
+    private String mListID;
+    private String mCompletedItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,28 +41,27 @@ public class HistoryActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        if(intent.getStringExtra(NewListActivity.TITLE) != null){
-            listID = intent.getStringExtra(NewListActivity.TITLE);
+        if(intent.getStringExtra(NewListActivity.TITLE) != null){ //if user came from NewListActivity pass in the list ID so we can filter history
+            mListID = intent.getStringExtra(NewListActivity.TITLE);
         }
         else{
-            completedItem = intent.getStringExtra(RollActivity.ROLL_TEXT);
-            listID = intent.getStringExtra(RollActivity.ROLL_ID);
+            mCompletedItem = intent.getStringExtra(RollActivity.ROLL_TEXT); //get the completed item's text so we can set it to completed
+            mListID = intent.getStringExtra(RollActivity.ROLL_ID); //if user came from HistoryActivity pass in the list ID so we can filter history
         }
 
         mRecyclerView = (RecyclerView)findViewById(R.id.history_list_items);
         mLinearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mAdapter = new MyAdapter(this, listID);
+        mAdapter = new MyAdapter(this, mListID);
         mRecyclerView.setAdapter(mAdapter);
 
-        if(completedItem != null){
-            mAdapter.getData().get(mAdapter.getPosition(completedItem, listID)).completed = true;
-            Log.d("DataStore", "completed = " + mAdapter.getData());
+        if(mCompletedItem != null){ //set the item to completed if the user came from RollActivity
+            mAdapter.getData().get(mAdapter.getPosition(mCompletedItem, mListID)).completed = true;
         }
 
         Intent data = new Intent();
-        data.putExtra(LIST_ID, listID);
+        data.putExtra(LIST_ID, mListID);
         setResult(RESULT_OK, data);
     }
 
@@ -75,9 +74,8 @@ public class HistoryActivity extends AppCompatActivity {
 
     public void onBackPressed(){
         super.onBackPressed();
-        //Log.d("DataStore", "back Pressed" + listID);
         Intent intent = new Intent(HistoryActivity.this, NewListActivity.class);
-        intent.putExtra(LIST_ID, listID);
+        intent.putExtra(LIST_ID, mListID);
         setResult(RESULT_OK, intent);
         startActivity(intent);
     }

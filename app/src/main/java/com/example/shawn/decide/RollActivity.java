@@ -19,6 +19,7 @@ public class RollActivity extends AppCompatActivity {
     public final static String ROLL_ID = "ROLL_ID";
     private Button mCompleteButton;
     private Button mIncompleteButton;
+    private Button mShareButton;
     private TextView mChoice;
 
     @Override
@@ -48,6 +49,24 @@ public class RollActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        mShareButton = (Button)findViewById(R.id.share_button);
+        mShareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("*/*");
+                intent.putExtra(Intent.EXTRA_SUBJECT, "I just used The Chooser!");
+                intent.putExtra(Intent.EXTRA_TEXT, "The Chooser selected an option for me from my list called " + id + ". My result was " + choice + "!");
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                // create a list of apps to choose from
+                Intent chooser = Intent.createChooser(intent, "Share your result!");
+                // Verify the original intent will resolve to at least one
+                // activity
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(chooser);
+                }
             }
         });
     }

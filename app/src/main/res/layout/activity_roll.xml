@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Do 20 Pushups now or else you will never get strong and be able to pick things up and put them down Do 20 Pushups now or else you will never get strong and be able to pick things up and put them down Do 20 Pushups now or else you will never get strong and be able to pick things up and put them down Do 20 Pushups now or else you will never get strong and be able to pick things up and put them down"
+        android:text="Do 20 Pushups"
         android:id="@+id/roll_choice"
         android:layout_gravity="center_horizontal"
         android:layout_centerVertical="true"
@@ -56,4 +56,14 @@
         android:background="@drawable/button_custom"
         android:textColor="#EEEEEE"
         android:padding="10dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        android:id="@+id/share_button"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 </RelativeLayout>
